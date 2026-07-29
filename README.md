@@ -1,10 +1,18 @@
 # Multimodal Segmentation of Long-Form Online Video into Content and Non-Content
 
-<video src="https://github.com/user-attachments/assets/299aa36c-c261-4ff5-a6ff-aadaf786fb22"></video>
+<video src="https://github.com/user-attachments/assets/45921752-3b8c-474b-b8d8-c89d9c557ae4"></video>
 
 Given a long-form video with ads spliced into the main content, the system labels every second of the video as either `content` or `non_content` (ads, intros, outros, self-promotion, filler), then plays the video back with the ad regions marked on the timeline and skippable.
 
 There is no training data and no learned model here. For every video we used unsupervised signal processing: histogram-based shot detection on the video side, spectral and MFCC-based clustering on the audio side, and a voting step that fuses the detectors together.
+
+## Contributions
+
+**[Justin](https://github.com/usc-jmshi):** Worked on C++ video segmenter. ffmpeg decoding, the local histogram chi-squared shot-boundary detector, the segment-vs-global-average categorisation stage, threshold parameters, and the `.seg` output format.
+
+**[Bhuvan](https://github.com/BHUVAN-RJ):** Worked on audio side and the fusion layer. Shared feature extraction, the v1 detector, the self-similarity-matrix detector, the high-pass BGM detector and its cluster-labelling logic, the scoring harness and parameter sweeps, both fusion implementations, the format adapters, the end-to-end driver script, and the technical report.
+
+**[Malhar](https://github.com/malhar-patil):** Worked on Qt6 player. `.seg` parsing and loading, the content/non-content timeline bar, the timestamp sidebar with current-segment highlighting, the skip-non-content playback mode, and the CMake build for Windows and macOS.
 
 ## Working
 
@@ -56,11 +64,3 @@ End to end on one video:
 ```
 
 That runs the video segmenter, both audio detectors, fuses them, and writes `.seg` next to the video. Open the video in the player and it picks that file up automatically.
-
-## Contributions
-
-**[Justin](https://github.com/usc-jmshi):** Worked on C++ video segmenter. ffmpeg decoding, the local histogram chi-squared shot-boundary detector, the segment-vs-global-average categorisation stage, threshold parameters, and the `.seg` output format.
-
-**[Bhuvan](https://github.com/BHUVAN-RJ):** Worked on audio side and the fusion layer. Shared feature extraction, the v1 detector, the self-similarity-matrix detector, the high-pass BGM detector and its cluster-labelling logic, the scoring harness and parameter sweeps, both fusion implementations, the format adapters, the end-to-end driver script, and the technical report.
-
-**[Malhar](https://github.com/malhar-patil):** Worked on Qt6 player. `.seg` parsing and loading, the content/non-content timeline bar, the timestamp sidebar with current-segment highlighting, the skip-non-content playback mode, and the CMake build for Windows and macOS.
